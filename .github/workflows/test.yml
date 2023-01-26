@@ -15,4 +15,5 @@ jobs:
           cd src
           javac -d . *.java
           cd test
+          ls
           java Main.java ./test/code
