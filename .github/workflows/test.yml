@@ -11,6 +11,6 @@ jobs:
          java-version: '8'
          distribution: 'temurin'
       - name: Build project
-        run: javac -d ./src *.java
+        run: javac -d ./src/*.java
       - name: Test project
         run: java Main.java ./test/code
