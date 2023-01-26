@@ -10,6 +10,8 @@ jobs:
         with:
          java-version: '8'
          distribution: 'temurin'
+      - name: Path
+        run: ls
       - name: Build project
         run: javac -d ./src/*.java
       - name: Test project
