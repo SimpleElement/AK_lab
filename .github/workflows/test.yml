@@ -11,7 +11,8 @@ jobs:
          java-version: '8'
          distribution: 'temurin'
       - name: Path
-        run: | 
+        run: |
           cd src
           javac -d . *.java
+          ls
           java Main.java ./test/code
