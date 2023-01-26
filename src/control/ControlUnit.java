@@ -46,22 +46,23 @@ public class ControlUnit {
         this.ports = new PortBuffer[5];
     }
 
-    public boolean downloadProgramInMemory(String[] binaryCode) {
-        this.memory = binaryCode;
-        return true;
+    public void downloadProgramInMemory(String binaryCode) {
+        this.memory = binaryCode.split("\n");
     }
 
-    public boolean setDevices(PortBuffer[] buffers) {
+    public void setDevices(PortBuffer[] buffers) {
         this.ports = buffers;
-        return true;
     }
 
     private interface Execute {
         public void execute();
     }
 
-    public void start() {
+    public void start(InstructionLogger instructionLogger) {
         while (true) {
+            instructionLogger.addLog("{\n\taccumulator: " + accumulator + "\n\tClockCommand: " + clockCommand + "\n\tBufferRegister: " + bufferRegister +
+                    "\n\tDataRegister: "+ dataRegister + "\n\tCommandRegister: " + commandRegister + "\n\tAddressRegister: " + addressRegister +
+                    "\n\tZeroFlag: " + zeroFlag + "\n\tOverflowFlag: " + overflowFlag + "\n\tNegativeFlag: " + negativeFlag + "\n}");
             addressRegister = clockCommand;
             bufferRegister = clockCommand;
             //1
@@ -77,6 +78,9 @@ public class ControlUnit {
             if (commandRegister.substring(0, 4).equals("0000")) {
 
                 if (commandRegister.equals(UnAddressCommand.HLT.getCode().replaceAll("_", ""))) {
+                    instructionLogger.addLog("{\n\taccumulator: " + accumulator + "\n\tClockCommand: " + clockCommand + "\n\tBufferRegister: " + bufferRegister +
+                            "\n\tDataRegister: "+ dataRegister + "\n\tCommandRegister: " + commandRegister + "\n\tAddressRegister: " + addressRegister +
+                            "\n\tZeroFlag: " + zeroFlag + "\n\tOverflowFlag: " + overflowFlag + "\n\tNegativeFlag: " + negativeFlag + "\n}");
                     return;
                 }
                 if (commandRegister.equals(UnAddressCommand.CLA.getCode().replaceAll("_", ""))) {
