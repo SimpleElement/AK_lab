@@ -14,4 +14,4 @@ jobs:
         run: |
           cd src
           javac -d . *.java
-          java Main.java code
+          java Main.java ./code
